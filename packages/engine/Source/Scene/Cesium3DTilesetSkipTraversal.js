@@ -147,6 +147,9 @@ function selectDesiredTile(tile, frameState) {
 /**
  * Update links to the ancestor tiles that have content
  *
+ * 更新切片的祖先内容链接相关属性：
+ * 1. _ancestorWithContent ：如果父切片内容加载，则为父切片。否则向上查找，直到查找到内容加载的祖先切片
+ * 2. _ancestorWithContentAvailable
  * @private
  * @param {Cesium3DTile} tile
  * @param {FrameState} frameState
@@ -179,6 +182,10 @@ function updateTileAncestorContentLinks(tile, frameState) {
  * Determine if a tile has reached the limit of level of detail skipping.
  * If so, it should _not_ be skipped: it should be loaded and rendered
  *
+ * 同时满足条件（1+2）或条件（1+3），不跳过：
+ * 1. tileset.immediatelyLoadDesiredLevelOfDetail = false
+ * 2. 切片屏幕误差 < 祖先切片屏幕误差/跳过屏幕误差因子 并且 切片深度> 祖先切片深度+跳过层级
+ * 3. tile._priorityProgressiveResolutionScreenSpaceErrorLeaf=true
  * @private
  * @param {Cesium3DTileset} tileset
  * @param {Cesium3DTile} tile
@@ -234,7 +241,9 @@ function updateAndPushChildren(tile, stack, frameState) {
  * Determine if a tile is part of the base traversal.
  * If not, this tile could be considered for level of detail skipping
  *
- * 判断是否使用基础的遍历器：1. immediatelyLoadDesiredLevelOfDetail=false 或 tile._screenSpaceError（切片屏幕空间误差：为0则取父切片） > baseScreenSpaceError
+ * 满足以下任一条件，则使用基础的遍历器：
+ * 1. tileset.immediatelyLoadDesiredLevelOfDetail=false
+ * 2. 切片屏幕空间误差(即tile._screenSpaceError：为0则取父切片平米空间我无处) > 基础屏幕误差（baseScreenSpaceError）
  * @private
  * @param {Cesium3DTile} tile
  * @param {number} baseScreenSpaceError
@@ -264,8 +273,7 @@ function inBaseTraversal(tile, baseScreenSpaceError) {
  *
  * 深度优先遍历，遍历所有可见的瓦片并标记要选择的瓦片。
  * 具有比基本屏幕空间误差更大的屏幕空间误差的瓦片是基本遍历的一部分，
- * 所有其他瓦片都是跳过遍历的一部分。跳过遍历允许跳过树的级别
- * 以及同时渲染子瓦片和父瓦片。
+ * 所有其他瓦片都是跳过遍历的一部分。跳过遍历允许跳过树的级别以及同时渲染子瓦片和父瓦片。
  * @private
  * @param {Cesium3DTile} root
  * @param {FrameState} frameState
