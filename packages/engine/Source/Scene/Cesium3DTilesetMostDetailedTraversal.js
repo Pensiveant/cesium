@@ -7,6 +7,8 @@ import Cesium3DTilesetTraversal from "./Cesium3DTilesetTraversal.js";
  * Traversal that loads all leaves that intersect the camera frustum.
  * Used to determine ray-tileset intersections during a pickFromRayMostDetailed call.
  *
+ * 遍历，加载与摄影机平截头体相交的所有叶子。
+ * 用于在pickFromRayMostDetailed调用期间确定光线平铺集交点
  * @alias Cesium3DTilesetMostDetailedTraversal
  * @constructor
  *

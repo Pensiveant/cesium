@@ -8,6 +8,9 @@ import Cesium3DTilesetTraversal from "./Cesium3DTilesetTraversal.js";
  * A tile does not refine until all children are loaded.
  * This is the traditional replacement refinement approach and is called the base traversal.
  *
+ * 深度优先遍历，遍历所有可见的瓦片并标记要选择的瓦片。
+ * 在加载所有子项之前，平铺不会进行细化。
+ * 这是传统的使用【替换细化】方法，称为基遍历
  * @alias Cesium3DTilesetBaseTraversal
  * @constructor
  *

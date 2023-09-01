@@ -7,6 +7,8 @@ import Cesium3DTilesetTraversal from "./Cesium3DTilesetTraversal.js";
  * Depth-first traversal that traverses all visible tiles and marks tiles for selection.
  * Allows for skipping levels of the tree and rendering children and parent tiles simultaneously.
  *
+ * 深度优先遍历，遍历所有可见的瓦片并标记要选择的瓦片。
+ * 允许跳过树的级别并同时渲染子平铺和父平铺。
  * @alias Cesium3DTilesetSkipTraversal
  * @constructor
  *
@@ -232,6 +234,7 @@ function updateAndPushChildren(tile, stack, frameState) {
  * Determine if a tile is part of the base traversal.
  * If not, this tile could be considered for level of detail skipping
  *
+ * 判断是否使用基础的遍历器：1. immediatelyLoadDesiredLevelOfDetail=false 或 tile._screenSpaceError（切片屏幕空间误差：为0则取父切片） > baseScreenSpaceError
  * @private
  * @param {Cesium3DTile} tile
  * @param {number} baseScreenSpaceError
@@ -259,6 +262,10 @@ function inBaseTraversal(tile, baseScreenSpaceError) {
  * all other tiles are part of the skip traversal. The skip traversal allows for skipping levels of the tree
  * and rendering children and parent tiles simultaneously.
  *
+ * 深度优先遍历，遍历所有可见的瓦片并标记要选择的瓦片。
+ * 具有比基本屏幕空间误差更大的屏幕空间误差的瓦片是基本遍历的一部分，
+ * 所有其他瓦片都是跳过遍历的一部分。跳过遍历允许跳过树的级别
+ * 以及同时渲染子瓦片和父瓦片。
  * @private
  * @param {Cesium3DTile} root
  * @param {FrameState} frameState

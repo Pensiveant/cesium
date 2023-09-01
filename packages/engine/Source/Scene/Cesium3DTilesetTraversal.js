@@ -51,6 +51,7 @@ Cesium3DTilesetTraversal.sortChildrenByDistanceToCamera = function (a, b) {
  * Determine if a tile can and should be traversed for children tiles that
  * would contribute to rendering the current view
  *
+ * 判断切片是否需要遍历子切片
  * @private
  * @param {Cesium3DTile} tile
  * @returns {boolean}
