@@ -1260,6 +1260,10 @@ Object.defineProperties(Cesium3DTileset.prototype, {
    * The user option may have been disabled if all tiles are using additive refinement,
    * or if some tiles have a content type for which rendering does not support skipping
    *
+   * 同时满足以下条件，则将启用【跳过切片层级】功能
+   * 1. skipLevelOfDetail=true且_disableSkipLevelOfDetail=false，即启用【跳过切片层级】功能
+   * 2. 未设置classificationType属性
+   * 3. 细化方式为：替换（replace）
    * @memberof Cesium3DTileset.prototype
    *
    * @type {boolean}

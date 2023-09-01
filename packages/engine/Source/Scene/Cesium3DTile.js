@@ -890,6 +890,7 @@ const scratchJulianDate = new JulianDate();
 /**
  * Get the tile's screen space error.
  *
+ * 计算切片的平面空间误差（SSE）
  * @private
  * @param {FrameState} frameState
  * @param {Boolean} useParentGeometricError
@@ -921,6 +922,7 @@ Cesium3DTile.prototype.getScreenSpaceError = function (
     frameState.mode === SceneMode.SCENE2D ||
     frustum instanceof OrthographicFrustum
   ) {
+    // 2D模式或正交投影
     const offCenterFrustum = frustum.offCenterFrustum;
     if (defined(offCenterFrustum)) {
       frustum = offCenterFrustum;

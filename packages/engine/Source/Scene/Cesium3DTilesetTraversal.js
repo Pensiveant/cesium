@@ -200,6 +200,7 @@ Cesium3DTilesetTraversal.updateTile = function (tile, frameState) {
 };
 
 /**
+ * 更新切片的可见性
  * @private
  * @param {Cesium3DTile} tile
  * @param {FrameState} frameState
