@@ -890,7 +890,7 @@ const scratchJulianDate = new JulianDate();
 /**
  * Get the tile's screen space error.
  *
- * 计算切片的平面空间误差（SSE）
+ * 计算切片的屏幕空间误差（SSE）
  * @private
  * @param {FrameState} frameState
  * @param {Boolean} useParentGeometricError
@@ -934,7 +934,7 @@ Cesium3DTile.prototype.getScreenSpaceError = function (
   } else {
     // Avoid divide by zero when viewer is inside the tile
     const distance = Math.max(this._distanceToCamera, CesiumMath.EPSILON7);
-    const sseDenominator = frustum.sseDenominator;
+    const sseDenominator = frustum.sseDenominator; //  frustum._sseDenominator = 2.0 * Math.tan(0.5 * frustum._fovy);
     error = (geometricError * height) / (distance * sseDenominator);
     if (tileset.dynamicScreenSpaceError) {
       const density = tileset._dynamicScreenSpaceErrorComputedDensity;
@@ -1004,6 +1004,9 @@ function getPriorityReverseScreenSpaceError(tileset, tile) {
 /**
  * Update the tile's visibility.
  *
+ * 更新切片的可见性等一些属性
+ * 1. 切片到相机的距离（_distanceToCamera）; 2. 切片边界范围中心到相机平面的距离（_centerZDepth）;3. 屏幕空间误差（_screenSpaceError）
+ * 4. 切片可见性（_visible）
  * @private
  * @param {FrameState} frameState
  */
@@ -1486,6 +1489,7 @@ function getContentBoundingVolume(tile, frameState) {
 
 /**
  * Determines whether the tile's bounding volume intersects the culling volume.
+ * 判断切片的边界范围是否与剔除边界范围相交
  *
  * @param {FrameState} frameState The frame state.
  * @param {number} parentVisibilityPlaneMask The parent's plane mask to speed up the visibility check.
@@ -1580,6 +1584,7 @@ const scratchToTileCenter = new Cartesian3();
 /**
  * Computes the distance from the center of the tile's bounding volume to the camera's plane defined by its position and view direction.
  *
+ * 计算切片边界范围中心到相机平面的距离
  * @param {FrameState} frameState The frame state.
  * @returns {number} The distance, in meters.
  *
