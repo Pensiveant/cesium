@@ -2077,6 +2077,7 @@ const scratchCommandList = [];
 /**
  * Processes the tile's content, e.g., create WebGL resources, to move from the PROCESSING to READY state.
  *
+ * 处理切片的内容，创建webgl资源，并最终将切片状态由PROCESSING转入READY状态
  * @param {Cesium3DTileset} tileset The tileset containing this tile.
  * @param {FrameState} frameState The frame state.
  *
