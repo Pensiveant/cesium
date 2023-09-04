@@ -5,6 +5,7 @@
  * in the 3D Tiles spec.
  * </p>
  *
+ * 切片的细化方式：add | replace
  * @enum {number}
  *
  * @private

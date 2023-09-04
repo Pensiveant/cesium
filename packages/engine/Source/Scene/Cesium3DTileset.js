@@ -2651,6 +2651,8 @@ function filterProcessingQueue(tileset) {
 
 /**
  * Process tiles in the PROCESSING state so they will eventually move to the READY state.
+ *
+ * 处理PROCESSING状态的切片，以便其最终转换为READY状态
  * @private
  * @param {Cesium3DTileset} tileset
  * @param {Cesium3DTile} tile
