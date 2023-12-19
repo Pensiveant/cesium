@@ -375,7 +375,7 @@ I3SDataProvider.fromUrl = async function (url, options) {
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
   const resource = Resource.createIfNeeded(url);
-  const data = await I3SDataProvider.loadJson(resource);
+  const data = await I3SDataProvider.loadJson(resource); // I3S debug：1. 请求SceneServiceInfo JSON 文件
 
   const provider = new I3SDataProvider(options);
   provider._resource = resource;
@@ -383,6 +383,7 @@ I3SDataProvider.fromUrl = async function (url, options) {
 
   // Success
   if (defined(data.layers)) {
+    // I3S debug：2. 使用SceneServiceInfo JSON 文件中的layers属性，创建I3SLayer
     for (let layerIndex = 0; layerIndex < data.layers.length; layerIndex++) {
       const newLayer = new I3SLayer(
         provider,
@@ -402,7 +403,7 @@ I3SDataProvider.fromUrl = async function (url, options) {
   const layerPromises = [];
   for (let i = 0; i < provider._layers.length; i++) {
     layerPromises.push(
-      provider._layers[i].load(options.cesium3dTilesetOptions)
+      provider._layers[i].load(options.cesium3dTilesetOptions) // 请求根节点图层3dSceneLayerInfo JSON文件
     );
   }
 

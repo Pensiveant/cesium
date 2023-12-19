@@ -177,7 +177,7 @@ I3SLayer.prototype.load = async function (cesium3dTilesetOptions) {
   }
 
   await this._dataProvider.loadGeoidData();
-  await this._loadRootNode(cesium3dTilesetOptions);
+  await this._loadRootNode(cesium3dTilesetOptions); // I3S debug：3. 使用SceneServiceInfo.layers[0].nodePages创建根节点
   await this._create3DTileset(cesium3dTilesetOptions);
 
   this._rootNode._tile = this._tileset._root;
@@ -295,7 +295,7 @@ I3SLayer.prototype._loadRootNode = function (cesium3dTilesetOptions) {
     if (defined(this._data.nodePages.rootIndex)) {
       rootIndex = this._data.nodePages.rootIndex;
     }
-    this._rootNode = new I3SNode(this, rootIndex, true);
+    this._rootNode = new I3SNode(this, rootIndex, true); // I3S debug：3. 使用SceneServiceInfo.layers[0].nodePages创建根节点
   } else {
     this._rootNode = new I3SNode(this, this._data.store.rootNode, true);
   }
