@@ -297,7 +297,7 @@ I3SDataProvider.prototype.isDestroyed = function () {
 I3SDataProvider.prototype.update = function (frameState) {
   for (let i = 0; i < this._layers.length; i++) {
     if (defined(this._layers[i]._tileset)) {
-      this._layers[i]._tileset.update(frameState);
+      this._layers[i]._tileset.update(frameState); // I3S debug： PrimitiveCollection.update触发I3SDataProvider.update更新，最终导致tileset触发更新
     }
   }
 };

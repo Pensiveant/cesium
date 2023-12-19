@@ -387,6 +387,7 @@ I3SLayer.prototype._create3DTileset = async function (cesium3dTilesetOptions) {
   });
 
   const tilesetUrl = URL.createObjectURL(tilesetBlob);
+  // I3S debug：I3SLayer创建对应的Cesium3DTileset
   this._tileset = await Cesium3DTileset.fromUrl(
     tilesetUrl,
     cesium3dTilesetOptions
