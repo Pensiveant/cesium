@@ -1107,6 +1107,7 @@ function createPriorityFunction(tile) {
 }
 
 /**
+ * 请求切片的内容
  * Requests the tile's content.
  * <p>
  * The request may not be made if the Cesium Request Scheduler can't prioritize it.

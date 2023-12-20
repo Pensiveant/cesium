@@ -400,6 +400,7 @@ I3SNode.prototype._clearGeometryData = function () {
 };
 
 /**
+ * 获取节点对应的3DTile定义
  * @private
  */
 I3SNode.prototype._create3DTileDefinition = function () {

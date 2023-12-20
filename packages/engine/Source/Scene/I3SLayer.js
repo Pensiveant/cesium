@@ -402,7 +402,7 @@ I3SLayer.prototype._create3DTileset = async function (cesium3dTilesetOptions) {
 
   this._tileset.tileVisible.addEventListener(function (tile) {
     if (defined(tile._i3sNode)) {
-      tile._i3sNode._loadChildren();
+      tile._i3sNode._loadChildren(); // I3S debug：加载根节点的子节点
     }
   });
 };
