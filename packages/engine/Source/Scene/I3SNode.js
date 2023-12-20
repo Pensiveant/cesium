@@ -328,6 +328,7 @@ I3SNode.prototype._loadChildren = function () {
 };
 
 /**
+ * 加载节点的几何数据
  * @private
  */
 I3SNode.prototype._loadGeometryData = function () {
@@ -687,6 +688,7 @@ Cesium3DTile.prototype._hookedRequestContent =
   Cesium3DTile.prototype.requestContent;
 
 /**
+ * 请求切片的内容，覆盖原有的Cesium3DTile.requestContent方法
  * Requests the tile's content.
  * <p>
  * The request may not be made if the Cesium Request Scheduler can't prioritize it.
