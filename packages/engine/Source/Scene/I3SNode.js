@@ -45,12 +45,12 @@ function I3SNode(parent, ref, isRoot) {
     });
   }
 
-  this._parent = parent;
+  this._parent = parent; // 当前节点的父节点
   this._dataProvider = parent._dataProvider;
-  this._isRoot = isRoot;
-  this._level = level;
-  this._layer = layer;
-  this._nodeIndex = nodeIndex;
+  this._isRoot = isRoot; // 是否为根节点
+  this._level = level; // 当前节点的层级
+  this._layer = layer; // 节点对应的I3SLayer
+  this._nodeIndex = nodeIndex; //
   this._resource = resource;
   this._isLoading = false;
 
@@ -59,7 +59,7 @@ function I3SNode(parent, ref, isRoot) {
   this._geometryData = [];
   this._featureData = [];
   this._fields = {};
-  this._children = [];
+  this._children = []; // 当前节点的子节点
   this._childrenReadyPromise = undefined;
   this._globalTransform = undefined;
   this._inverseGlobalTransform = undefined;
@@ -169,6 +169,7 @@ Object.defineProperties(I3SNode.prototype, {
 });
 
 /**
+ * 加载当前节点，如果为非根节点，则创建Cesium3DTile
  * @private
  */
 I3SNode.prototype.load = async function () {
@@ -289,6 +290,7 @@ I3SNode.prototype.getFieldsForFeature = function (featureIndex) {
 };
 
 /**
+ * 加载当前节点的子节点
  * @private
  */
 I3SNode.prototype._loadChildren = function () {
