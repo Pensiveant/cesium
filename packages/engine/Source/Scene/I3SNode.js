@@ -196,7 +196,7 @@ I3SNode.prototype.load = async function () {
         that._layer._tileset,
         that._dataProvider.resource,
         tileDefinition,
-        that._parent._tile
+        that._parent._tile,
       );
 
       that._tile._i3sNode = that;
@@ -220,7 +220,7 @@ I3SNode.prototype.load = async function () {
     const uriIndex = node.mesh.geometry.resource;
     uri = `../${uriIndex}/`;
   }
-  if (defined(uri)) {
+  if (defined(uri) && defined(that._parent.resource)) {
     that._resource = that._parent.resource.getDerivedResource({ url: uri });
   }
 
@@ -299,7 +299,7 @@ I3SNode.prototype.getFieldsForPickedPosition = function (pickedPosition) {
   const location = geometry.getClosestPointIndexOnTriangle(
     pickedPosition.x,
     pickedPosition.y,
-    pickedPosition.z
+    pickedPosition.z,
   );
 
   if (
@@ -353,7 +353,7 @@ I3SNode.prototype._loadChildren = function () {
       const newChild = new I3SNode(
         that,
         defaultValue(child.href, child),
-        false
+        false,
       );
       that._children.push(newChild);
       childPromises.push(newChild.load());
@@ -386,7 +386,7 @@ I3SNode.prototype._loadGeometryData = function () {
     ) {
       const curGeometryData = new I3SGeometry(
         this,
-        this._data.geometryData[geomIndex].href
+        this._data.geometryData[geomIndex].href,
       );
       this._geometryData.push(curGeometryData);
       geometryPromises.push(curGeometryData.load());
@@ -394,7 +394,7 @@ I3SNode.prototype._loadGeometryData = function () {
   } else if (defined(this._data.mesh)) {
     const geometryDefinition = this._layer._findBestGeometryBuffers(
       this._data.mesh.geometry.definition,
-      ["position", "uv0"]
+      ["position", "uv0"],
     );
 
     const geometryURI = `./geometries/${geometryDefinition.bufferIndex}/`;
@@ -424,7 +424,7 @@ I3SNode.prototype._loadFeatureData = function () {
     ) {
       const newFeatureData = new I3SFeature(
         this,
-        this._data.featureData[featureIndex].href
+        this._data.featureData[featureIndex].href,
       );
       this._featureData.push(newFeatureData);
       featurePromises.push(newFeatureData.load());
@@ -460,7 +460,7 @@ I3SNode.prototype._create3DTileDefinition = function () {
     geoPosition = Cartographic.fromDegrees(
       obb.center[0],
       obb.center[1],
-      obb.center[2]
+      obb.center[2],
     );
   } else {
     geoPosition = Cartographic.fromDegrees(mbs[0], mbs[1], mbs[2]);
@@ -505,7 +505,7 @@ I3SNode.prototype._create3DTileDefinition = function () {
     };
     span = Math.max(
       Math.max(this._data.obb.halfSize[0], this._data.obb.halfSize[1]),
-      this._data.obb.halfSize[2]
+      this._data.obb.halfSize[2],
     );
     position = Ellipsoid.WGS84.cartographicToCartesian(geoPosition);
   } else {
@@ -526,7 +526,7 @@ I3SNode.prototype._create3DTileDefinition = function () {
       "maxScreenThresholdSQ"
     ) {
       const maxScreenThreshold = Math.sqrt(
-        this._data.lodThreshold / (Math.PI * 0.25)
+        this._data.lodThreshold / (Math.PI * 0.25),
       );
       metersPerPixel = span / maxScreenThreshold;
     } else if (
@@ -569,7 +569,7 @@ I3SNode.prototype._create3DTileDefinition = function () {
       this._data.obb.quaternion[0],
       this._data.obb.quaternion[1],
       this._data.obb.quaternion[2],
-      this._data.obb.quaternion[3]
+      this._data.obb.quaternion[3],
     );
   }
 
@@ -592,12 +592,12 @@ I3SNode.prototype._create3DTileDefinition = function () {
     position.x,
     position.y,
     position.z,
-    1
+    1,
   );
 
   const inverseGlobalTransform = Matrix4.inverse(
     globalTransform,
-    new Matrix4()
+    new Matrix4(),
   );
 
   const localTransform = Matrix4.clone(globalTransform);
@@ -606,7 +606,7 @@ I3SNode.prototype._create3DTileDefinition = function () {
     Matrix4.multiply(
       globalTransform,
       this._parent._inverseGlobalTransform,
-      localTransform
+      localTransform,
     );
   }
 
@@ -618,7 +618,7 @@ I3SNode.prototype._create3DTileDefinition = function () {
   const childrenDefinition = [];
   for (let childIndex = 0; childIndex < this._children.length; childIndex++) {
     childrenDefinition.push(
-      this._children[childIndex]._create3DTileDefinition()
+      this._children[childIndex]._create3DTileDefinition(),
     );
   }
 
@@ -713,7 +713,7 @@ I3SNode.prototype._createContentURL = async function () {
       geometrySchema,
       geometryData,
       this._featureData[0],
-      this._symbologyData
+      this._symbologyData,
     );
     if (!defined(result)) {
       // Postponed
@@ -728,7 +728,7 @@ I3SNode.prototype._createContentURL = async function () {
       result.meshData.bufferViews,
       result.meshData.accessors,
       result.meshData.rootExtensions,
-      result.meshData.extensionsUsed
+      result.meshData.extensionsUsed,
     );
 
     this._geometryData[0]._customAttributes = result.meshData._customAttributes;
