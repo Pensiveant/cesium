@@ -608,8 +608,8 @@ function initialize(primitive, provider) {
 
   primitive.minBounds = minBounds;
   primitive.maxBounds = maxBounds;
-  primitive.minClippingBounds = VoxelShapeType.getMinBounds(shapeType);
-  primitive.maxClippingBounds = VoxelShapeType.getMaxBounds(shapeType);
+  primitive.minClippingBounds = minBounds.clone();
+  primitive.maxClippingBounds = maxBounds.clone();
 
   // Initialize the exaggerated versions of bounds and model matrix
   primitive._exaggeratedMinBounds = Cartesian3.clone(
@@ -1502,7 +1502,7 @@ function initFromProvider(primitive, provider, context) {
     primitive._paddingAfter,
     primitive._inputDimensions,
   );
-  if (provider.metadataOrder === VoxelMetadataOrder.GLTF) {
+  if (provider.metadataOrder === VoxelMetadataOrder.Y_UP) {
     const inputDimensionsY = primitive._inputDimensions.y;
     primitive._inputDimensions.y = primitive._inputDimensions.z;
     primitive._inputDimensions.z = inputDimensionsY;
