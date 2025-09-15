@@ -611,10 +611,7 @@ const externalResolvePlugin = {
  * @returns {Promise<any>}
  */
 export async function createGalleryList(noDevelopmentGallery) {
-  const configPath = path.join(
-    import.meta.url,
-    "../../packages/sandcastle/sandcastle.config.js",
-  );
+  const configPath = "../../cesium/packages/sandcastle/sandcastle.config.js";
   const config = await import(configPath);
   const { root: rootDirectory, gallery, sourceUrl } = config.default;
 
